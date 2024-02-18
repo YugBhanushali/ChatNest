@@ -18,7 +18,7 @@ const Chat = () => {
         navigator("/chat");
       }
     });
-  }, [isSignedIn]);
+  }, [userId]);
 
   return (
     <div className="flex p-2 w-full h-[100vh]">

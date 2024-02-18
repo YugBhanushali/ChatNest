@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import { generateSlug } from "random-word-slugs";
 import { LogOut } from "lucide-react";
 import { useAuthHook } from "@/store/AuthHook";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ApiCaller, Apiurl } from "@/lib/Api";
 import { useRoomHook } from "@/store/ChatHook";
 import JoinRoomModal from "./JoinRoomModal";
@@ -12,6 +12,7 @@ import { MinidenticonImg } from "./RoomIcon";
 import { useRoomsHook } from "@/store/RoomsHook";
 import { IoMdRemoveCircleOutline } from "react-icons/io";
 import { ModeToggle } from "./ModeToggle";
+import { RotatingLines } from "react-loader-spinner";
 
 const groupName: Array<string> = [];
 for (let index = 0; index < 20; index++) {
@@ -22,10 +23,10 @@ const SideBar = () => {
   const { userId, checkAuth, username, signOut } = useAuthHook(
     (state) => state
   );
+  const [isLoading, setisLoading] = useState(false);
   const { roomId, setCurrRoom, setRoomToNull } = useRoomHook((state) => state);
   const { rooms, setUserRooms } = useRoomsHook((state) => state);
   const navigator = useNavigate();
-
   const handleDelete = async () => {
     const res = await fetch(
       `${Apiurl}/api/room/remove-user/${roomId}/${userId}`,
@@ -55,14 +56,17 @@ const SideBar = () => {
   };
 
   useEffect(() => {
+    setisLoading(true);
     checkAuth().then(() => {
       // groups(room)
-      setUserRooms(userId);
+      setUserRooms(userId).then(() => {
+        setisLoading(false);
+      });
     });
   }, [userId]);
 
   useEffect(() => {
-    setUserRooms(userId);
+    setUserRooms(userId).then(() => {});
   }, [rooms]);
 
   return (
@@ -78,7 +82,11 @@ const SideBar = () => {
       <hr />
       <div className="flex flex-col p-2">
         <div className="flex flex-col mt-0 h-[75vh] overflow-y-auto">
-          {rooms?.length !== 0 ? (
+          {isLoading ? (
+            <div className="flex justify-center items-center mt-20">
+              <RotatingLines width="25" strokeColor="#4c7af8" />
+            </div>
+          ) : rooms?.length !== 0 ? (
             rooms?.map((group: any) => {
               return (
                 <div
