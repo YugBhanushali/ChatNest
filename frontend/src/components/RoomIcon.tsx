@@ -5,7 +5,7 @@ interface MinidenticonImgProps {
   username: string;
   saturation: number;
   lightness?: number;
-  [key: string]: any; // additional props
+  [key: string]: any;
 }
 
 export const MinidenticonImg: React.FC<MinidenticonImgProps> = ({
