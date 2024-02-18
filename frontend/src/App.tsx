@@ -4,8 +4,10 @@ import Home from "./pages/Home";
 import { ScoketPorvider } from "./Context/SocketWrapper";
 import Chat from "./pages/Chat";
 import { ThemeProvider } from "./components/Theme-Provider";
+import { inject } from "@vercel/analytics";
 
 function App() {
+  inject();
   return (
     <BrowserRouter>
       <ScoketPorvider>
