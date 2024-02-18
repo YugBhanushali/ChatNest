@@ -52,6 +52,7 @@ const Auth = () => {
       }
       console.log(data);
     } else {
+      // @ts-ignore testing
       const { data, status } = await ApiCaller("signup", "POST", {
         userId: nanoid(),
         username: String(userData?.username),

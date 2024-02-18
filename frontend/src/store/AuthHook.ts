@@ -44,6 +44,8 @@ export const useAuthHook = create<UserDataProp>((set) => ({
         }
       );
 
+      console.log(status, data);
+
       if (status === 200) {
         const userData = await ApiCaller(`api/user/${data.userId}`, "GET", {});
         if (userData.status === 200) {
