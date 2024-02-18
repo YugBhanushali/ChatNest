@@ -5,8 +5,8 @@ const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const roomRoutes = require("./routes/roomRoutes");
 const http = require("http");
-const User = require("./models/user");
-const Room = require("./models/Room");
+const User = require("./models/User.js");
+const Room = require("./models/Room.js");
 const { Server } = require("socket.io");
 require("dotenv").config();
 
