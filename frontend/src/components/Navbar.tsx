@@ -1,5 +1,7 @@
 import { ModeToggle } from "./ModeToggle";
 import { IoIosChatbubbles } from "react-icons/io";
+import { Button } from "./ui/button";
+import { FiGithub } from "react-icons/fi";
 
 const Navbar = () => {
   return (
@@ -10,7 +12,17 @@ const Navbar = () => {
         </span>
         ChatNest
       </div>
-      <ModeToggle />
+      <div className="flex justify-center items-center gap-x-1">
+        <div>
+          <Button variant={"ghost"} size={"icon"}>
+            <a href="https://github.com/YugBhanushali/ChatNest">
+              {" "}
+              <FiGithub size={18} />
+            </a>
+          </Button>
+        </div>
+        <ModeToggle />
+      </div>
     </div>
   );
 };
