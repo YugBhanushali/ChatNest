@@ -1,4 +1,3 @@
-import React from "react";
 import { ModeToggle } from "./ModeToggle";
 import { IoIosChatbubbles } from "react-icons/io";
 

@@ -6,7 +6,6 @@ import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
-  // @ts-expect-error to remove
   const { userId, isSignedIn, checkAuth } = useAuthHook((state) => state);
   const navigator = useNavigate();
   const isSmallScreen = useMediaQuery({ maxWidth: 450 });

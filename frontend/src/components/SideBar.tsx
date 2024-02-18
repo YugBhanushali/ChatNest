@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import { generateSlug } from "random-word-slugs";
 import { LogOut } from "lucide-react";
 import { useAuthHook } from "@/store/AuthHook";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ApiCaller, Apiurl } from "@/lib/Api";
 import { useRoomHook } from "@/store/ChatHook";
 import JoinRoomModal from "./JoinRoomModal";
