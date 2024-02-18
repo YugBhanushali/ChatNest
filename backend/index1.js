@@ -145,6 +145,6 @@ io.on("connection", (socket) => {
 //   console.log(`Server at 9001`);
 // });
 
-httpServer.listen(8000, () => {
+httpServer.listen(process.env.PORT || 8000, () => {
   console.log(`WS at 8000`);
 });
