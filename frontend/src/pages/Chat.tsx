@@ -6,13 +6,15 @@ import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
+  // @ts-ignore testing
   const { userId, isSignedIn, checkAuth } = useAuthHook((state) => state);
   const navigator = useNavigate();
   const isSmallScreen = useMediaQuery({ maxWidth: 450 });
   useEffect(() => {
     checkAuth().then((data: any) => {
       console.log(data);
-      if (data.status !== 200) {
+
+      if (!isSignedIn) {
         navigator("/auth");
       } else {
         navigator("/chat");

@@ -20,6 +20,7 @@ for (let index = 0; index < 20; index++) {
 }
 
 const SideBar = () => {
+  // @ts-ignore testing
   const { userId, checkAuth, username, signOut } = useAuthHook(
     (state) => state
   );
