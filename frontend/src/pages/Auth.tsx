@@ -86,7 +86,7 @@ const Auth = () => {
       <div className="flex justify-center items-center mt-[150px]">
         <Card className="w-[380px] p-4">
           <CardHeader className="flex justify-center items-center">
-            <CardTitle>Welcome to ChatApp</CardTitle>
+            <CardTitle>Welcome to ChatNest</CardTitle>
             <CardDescription>
               {signIn
                 ? "Log In with userId and password"
