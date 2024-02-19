@@ -10,8 +10,9 @@ const Chat = () => {
   const navigator = useNavigate();
   const isSmallScreen = useMediaQuery({ maxWidth: 450 });
   useEffect(() => {
-    checkAuth().then(() => {
-      if (!isSignedIn) {
+    checkAuth().then((data: any) => {
+      console.log(data);
+      if (data.status !== 200) {
         navigator("/auth");
       } else {
         navigator("/chat");

@@ -57,13 +57,13 @@ const SideBar = () => {
 
   useEffect(() => {
     setisLoading(true);
-    checkAuth().then(() => {
-      // groups(room)
-      setUserRooms(userId).then(() => {
-        setisLoading(false);
-      });
+    // checkAuth().then(() => {
+    //   // groups(room)
+    // });
+    setUserRooms(userId).then(() => {
+      setisLoading(false);
     });
-  }, [userId]);
+  }, []);
 
   useEffect(() => {
     setUserRooms(userId).then(() => {});

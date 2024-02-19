@@ -69,7 +69,7 @@ const Auth = () => {
 
   useEffect(() => {
     if (localStorage.getItem("authToken")) {
-      navigator("/chat");
+      // navigator("/chat");
       test.checkAuth().then(() => {
         if (test.isSignedIn) {
           navigator("/chat");
@@ -78,7 +78,7 @@ const Auth = () => {
     } else {
       null;
     }
-  }, [test]);
+  }, [test.userId]);
 
   return (
     <div className="flex flex-col w-full justify-center items-center">

@@ -8,7 +8,10 @@ type UserDataProp = {
   email: string;
   signIn: (data: any) => void;
   signOut: () => void;
-  checkAuth: () => Promise<void>;
+  checkAuth: () => Promise<{
+    status: any;
+    data: any;
+  }>;
 };
 
 export const useAuthHook = create<UserDataProp>((set) => ({
@@ -51,14 +54,17 @@ export const useAuthHook = create<UserDataProp>((set) => ({
         if (userData.status === 200) {
           const { username, email } = userData.data.user;
           set({ isSignedIn: true, userId: data.userId, username, email });
+          return { status: status, data: data };
         }
       } else {
         // If check-login API returns other than 200, user is not authenticated
         set({ isSignedIn: false, userId: "", username: "", email: "" });
+        return { status: status, data: data };
       }
     } else {
       // No token found, user is not authenticated
       set({ isSignedIn: false, userId: "", username: "", email: "" });
+      return { status: 401, data: null };
     }
   },
 }));
