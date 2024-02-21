@@ -5,6 +5,7 @@ import { ScoketPorvider } from "./Context/SocketWrapper";
 import Chat from "./pages/Chat";
 import { ThemeProvider } from "./components/Theme-Provider";
 import { inject } from "@vercel/analytics";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   inject();
@@ -17,6 +18,7 @@ function App() {
             <Route path="/auth" element={<Auth />} />
             <Route path="/chat" element={<Chat />} />
           </Routes>
+          <Toaster />
         </ThemeProvider>
       </ScoketPorvider>
     </BrowserRouter>

@@ -16,6 +16,7 @@ import { useAuthHook } from "@/store/AuthHook";
 import { TailSpin } from "react-loader-spinner";
 import { ApiCaller } from "@/lib/Api";
 import Navbar from "@/components/Navbar";
+import toast from "react-hot-toast";
 
 const nanoid = customAlphabet("1234567890qwertyuiopasdfghjklzxcvbnm", 10);
 
@@ -33,37 +34,61 @@ const Auth = () => {
   const handleAuth = async () => {
     setisLoading(true);
     if (signIn) {
-      const userObj = {
-        email: String(userData?.email),
-        password: String(userData?.password),
-      };
-      const { data, status } = await ApiCaller("login", "POST", userObj);
-      console.log(data);
-      if (status == 200) {
+      if (userData?.email != "" && userData?.password != "") {
+        const userObj = {
+          email: String(userData?.email),
+          password: String(userData?.password),
+        };
+        const { data, status } = await ApiCaller("login", "POST", userObj);
         console.log(data);
-        test.signIn({
-          userId: data.user.userId,
-          username: data.user.username,
-          email: data.user.email,
-        });
-        navigator("/chat");
-        localStorage.setItem("authToken", data?.token);
-        localStorage.setItem("authStatus", "true");
+        if (status == 200) {
+          console.log(data);
+          test.signIn({
+            userId: data.user.userId,
+            username: data.user.username,
+            email: data.user.email,
+          });
+          navigator("/chat");
+          localStorage.setItem("authToken", data?.token);
+          localStorage.setItem("authStatus", "true");
+          setisLoading(false);
+        } else {
+          toast.error("Incorrect user Id & password");
+          setisLoading(false);
+          setuserData({ email: "", username: "", password: "" });
+        }
+      } else {
+        if (userData?.email === "") toast.error("Enter correct email to login");
+        if (userData?.password === "")
+          toast.error("Enter correct password to login");
         setisLoading(false);
       }
       console.log(data);
     } else {
       // @ts-ignore testing
-      const { data, status } = await ApiCaller("signup", "POST", {
-        userId: nanoid(),
-        username: String(userData?.username),
-        email: String(userData?.email),
-        password: String(userData?.password),
-      });
-      if (status == 200) {
-        navigator("/chat");
+      if (
+        userData?.email != "" &&
+        userData?.password != "" &&
+        userData?.username != ""
+      ) {
+        const { data, status } = await ApiCaller("signup", "POST", {
+          userId: nanoid(),
+          username: String(userData?.username),
+          email: String(userData?.email),
+          password: String(userData?.password),
+        });
+        if (status == 200) {
+          navigator("/chat");
+          setisLoading(false);
+        } else {
+          toast.error("Error while creating accound.Please try again");
+          setisLoading(false);
+        }
+        setisLoading(false);
+      } else {
+        toast.error("Enter correct information to create account");
+        setisLoading(false);
       }
-      setisLoading(false);
     }
   };
 
@@ -107,6 +132,7 @@ const Auth = () => {
                         return { ...prev, email: e.target.value };
                       });
                     }}
+                    value={userData?.email}
                   />
                 </div>
                 {signIn ? null : (
@@ -121,6 +147,7 @@ const Auth = () => {
                           return { ...prev, username: e.target.value };
                         });
                       }}
+                      value={userData?.username}
                     />
                   </div>
                 )}
@@ -135,6 +162,7 @@ const Auth = () => {
                         return { ...prev, password: e.target.value };
                       });
                     }}
+                    value={userData?.password}
                   />
                 </div>
               </div>
