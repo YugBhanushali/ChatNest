@@ -63,6 +63,7 @@ const Auth = () => {
           toast.error("Enter correct password to login");
         setisLoading(false);
       }
+      // @ts-ignore testing
       console.log(data);
     } else {
       // @ts-ignore testing
@@ -71,6 +72,7 @@ const Auth = () => {
         userData?.password != "" &&
         userData?.username != ""
       ) {
+        // @ts-ignore testing
         const { data, status } = await ApiCaller("signup", "POST", {
           userId: nanoid(),
           username: String(userData?.username),
